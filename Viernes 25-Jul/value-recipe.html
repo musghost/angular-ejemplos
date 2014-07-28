@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		<title>My Angular App</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-app="myApp">
+		    <div ng-controller="DemoController">
+		        <p>Client ID: {{clientId}}</p>
+		    </div>
+		</div>
+		<script>
+		var myApp = angular.module('myApp', []);
+		
+		myApp.value('clientId', 'a12345654321x');
+
+		myApp.controller('DemoController', ['clientId', '$scope', function DemoController(clientId, $scope) {
+			$scope.clientId = clientId;
+		}]);
+		</script>
+	</body>
+</html>

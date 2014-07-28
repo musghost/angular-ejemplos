@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="httpApp">
+	<head>
+		<title>My Angular App</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-controller="myHttpController">
+			<h1>{{title}}</h1>
+			<p>{{body}}</p>
+			<button ng-click="info()">Info</button>
+		</div>
+		<script>
+		angular.module('httpApp', [])
+			.controller('myHttpController', function($scope, $http){
+				$scope.title = '';
+				$scope.body = '';
+
+				$scope.info = function(){
+
+					$http
+						.get('object.json').success(function(data){
+							$scope.title = data.title;
+							$scope.body = data.body;
+						})
+						.error(function(data){
+							$scope.body = 'There was some error';
+						});
+				}
+			});
+		</script>
+	</body>
+</html>

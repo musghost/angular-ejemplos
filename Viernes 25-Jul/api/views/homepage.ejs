@@ -1,0 +1,47 @@
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
+        <div ng-app="myApp">
+            <div ng-controller="FormController">
+                <div>
+                    <input ng-model="person.name">
+                </div>
+                <div>
+                    <input ng-model="person.stars">
+                </div>
+                <div>
+                    <input ng-model="person.age">
+                </div>
+                <button ng-click="save()">Guardar</button>
+            </div>
+            <div ng-controller="PeopleController">
+                <div ng-repeat="person in people">
+                    <span>Nombre: {{person.name}}</span><br>
+                    <span>Estrellas: {{person.stars}}</span><br>
+                    <span>Edad: {{person.age}}</span>
+                </div>
+            </div>
+        </div>
+        <script>
+        var myApp = angular.module('myApp', ['ngResource']);
+        
+        myApp.factory('People', ['$resource', function($resource){
+            return $resource('http://localhost:1337/user');
+        }]);
+
+        myApp.controller('PeopleController', ['People', '$scope', function(People, $scope){
+            var people = People.query();
+            $scope.people = people;
+        }]);
+
+        myApp.controller('FormController', ['People', '$scope', function(People, $scope){
+            $scope.save = function(){
+                var person = new People({
+                    name: $scope.name,
+                    stars: $scope.stars,
+                    age: $scope.age
+                });
+                person.save();
+            }
+        }]);
+        </script>
