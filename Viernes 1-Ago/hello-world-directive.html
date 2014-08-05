@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<title>My Angular App</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	</head>
+	<body>
+        <div ng-app="myApp">
+            <div hello-world></div>
+            <hello-world></hello-world>
+            <div class="hello-world"></div>
+        </div>
+        <div>
+            <p>The restrict option is typically set to:</p>
+            <ul>
+                <li><code><span class="str">'A'</span></code> - only matches attribute name</li>
+                <li><code><span class="str">'E'</span></code> - only matches element name</li>
+                <li><code><span class="str">'C'</span></code> - only matches class name</li>
+            </ul>
+            <p>These restrictions can all be combined as needed:</p>
+            <ul>
+                <li><code><span class="str">'AEC'</span></code> - matches either attribute or element or class name</li>
+            </ul>
+        </div>
+        <script>
+        var myApp = angular.module('myApp', []);
+
+        
+        myApp.directive('helloWorld', function(){
+            return {
+                restrict: 'AEC',
+                templateUrl: 'views/hello-world.html',
+                replace: false
+            }
+        });
+
+        </script>
+
+	</body>
+</html>

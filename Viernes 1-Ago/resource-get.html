@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<title>My Angular App</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
+	</head>
+	<body>
+        <div ng-app="myApp">
+            <div ng-controller="PeopleController">
+                <div>
+                    <span>Nombre: {{person.name}}</span><br>
+                    <span>Estrellas: {{person.stars}}</span><br>
+                    <span>Edad: {{person.age}}</span>
+                </div>
+            </div>
+        </div>
+        <script>
+        var myApp = angular.module('myApp', ['ngResource']);
+        
+        myApp.factory('People', ['$resource', function($resource){
+            return $resource('http://localhost:1337/user');
+        }]);
+
+        myApp.controller('PeopleController', ['People', '$scope', function(People, $scope){
+            var person = People.get({ id: 1});
+            $scope.person = person;
+        }]);
+
+        //https://docs.angularjs.org/api/ngResource/service/$resource
+
+        </script>
+
+	</body>
+</html>

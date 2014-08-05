@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title>My Angular App</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	</head>
+	<body>
+        <div ng-app="myApp">
+            <hello-world></hello-world>
+        </div>
+        <script>
+        var myApp = angular.module('myApp', []);
+
+        myApp.run(function($templateCache){
+            $templateCache.put('helloWorldCached.html', '<div>Hello World</div>');
+
+        })
+        
+        myApp.directive('helloWorld', function(){
+            return {
+                restrict: 'E',
+                templateUrl: 'helloWorldCached.html',
+                replace: true
+            }
+        });
+
+        </script>
+
+	</body>
+</html>
